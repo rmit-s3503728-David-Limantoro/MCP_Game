@@ -1,0 +1,22 @@
+
+public class User {
+	private String username;
+	private String password;
+	private String address;
+	private String name;
+	private int[] lastscores[];
+	private int losses;
+	private int wins;
+	
+	public User (String un, String p, String add, String n){
+		
+	}
+	
+	+ getUserName: String
+	+ getPassword: String
+	+ getAddress: String
+	+ getName: String
+	+ getLastScores: int[]
+	+ getLosses: int
+	+ getWins:int
+}

@@ -1,0 +1,8 @@
+
+public class Score {
+	private int[] scores;
+
+	private void updateScore(int newScore) {
+
+	}
+}

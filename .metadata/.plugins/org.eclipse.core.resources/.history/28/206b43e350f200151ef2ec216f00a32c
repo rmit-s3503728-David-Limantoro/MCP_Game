@@ -1,0 +1,15 @@
+
+public class Login {
+	public void createNewUser(String userName, String password) {
+
+	}
+
+	public void loginUser(String userName, String password) {
+
+	}
+
+	public void logoutUser(String userName, String password) {
+
+	}
+
+}

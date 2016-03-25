@@ -1,0 +1,24 @@
+
+public class Saving {
+	
+	Login 
+	User[]:
+	string
+	player[]:
+	player
+	monster[]:
+	monster
+	cells2D[][]:
+	cells2D[][]
+	cells[]:
+	cells[]
+	settings:
+	settings
+	score:score
+
+	public void savegame() {
+	}
+
+	public void loadgame() {
+	}
+}

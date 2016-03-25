@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class Saving {
+
+	Login login = new Login();
+
+	ArrayList<Moveable> moveable = new ArrayList<Moveable>();monster[]:
+	monster
+	cells2D[][]:
+	cells2D[][]
+	cells[]:
+	cells[]
+	settings:
+	settings
+	score:score
+
+	public void savegame() {
+	}
+
+	public void loadgame() {
+	}
+}

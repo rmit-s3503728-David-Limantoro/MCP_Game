@@ -1,0 +1,12 @@
+
+public class Setting {
+	private boolean isPlayerSkipping;
+	private boolean isPlayerTrapping;
+	private boolean isPlayerTunnelling;
+	private boolean isMonsterInvisible;
+	private boolean isMonsterLeaping;
+	private boolean isMonsterReproducing;
+	private int timeticklength;
+	private int gameDuration;
+	private String maptype;
+}

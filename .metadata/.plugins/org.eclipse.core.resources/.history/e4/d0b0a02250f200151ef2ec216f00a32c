@@ -1,0 +1,38 @@
+
+public class User {
+	private String username;
+	private String password;
+	private String address;
+	private String name;
+	private int[] lastscores[];
+	private int losses;
+	private int wins;
+
+	public User(String un, String p, String add, String n) {
+		username = un;
+		password = p;
+		address = add;
+		name = n;
+	}
+
+	public String getUserName() {
+	}
+
+	public String getPassword() {
+	}
+
+	public String getAddress() {
+	}
+
+	public String getName() {
+	}
+
+	public int[] getLastScores() {
+	}
+
+	public int[] getLosses() {
+	}
+
+	public int getWins() {
+	}
+}

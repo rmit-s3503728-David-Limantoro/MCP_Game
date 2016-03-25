@@ -1,0 +1,13 @@
+
+public class Score {
+	private int[] scores;
+
+	public void updateScore(int newScore) {
+		// Update score list accordingly
+		@TODO 
+	}
+
+	public int[] getScores() {
+		return scores;
+	}
+}
