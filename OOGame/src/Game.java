@@ -84,6 +84,11 @@ public class Game extends JFrame {
 				break;
 			player.setDirection(' '); // reset to no direction
 
+			for (int x = 0; x < monster.size(); x++) {
+				if (monster.get(x) instanceof MonsterInfant) {
+					((MonsterInfant)monster.get(x)).reducecountdownToChild();
+				}
+			}
 			monster.get(0).move();
 			if (monster.get(0).currentCell == player.getCell())
 				break;

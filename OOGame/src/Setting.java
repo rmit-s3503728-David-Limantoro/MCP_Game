@@ -1,14 +1,14 @@
 
 public class Setting {
-	private boolean isPlayerSkipping;
-	private boolean isPlayerTrapping;
-	private boolean isPlayerTunnelling;
-	private boolean isMonsterInvisible;
-	private boolean isMonsterLeaping;
-	private boolean isMonsterReproducing;
-	private int timeticklength;
-	private int gameDuration;
-	private String maptype;
+	private  boolean isPlayerSkipping; //setting options
+	private static boolean isPlayerTrapping;
+	private static boolean isPlayerTunnelling;
+	private static boolean isMonsterInvisible;
+	private static boolean isMonsterLeaping;
+	private static boolean isMonsterReproducing;
+	private static int timeticklength;
+	private static int gameDuration;
+	private static String maptype;
 
 	public void updatePlayerAbilities(boolean skip, boolean trap, boolean tun) {
 		isPlayerSkipping = skip;
@@ -22,7 +22,7 @@ public class Setting {
 		isMonsterReproducing = repro;
 
 	}
-
+	
 	public void updateOtherSettings(int time, int gd, String map) {
 		timeticklength = time;
 		gameDuration = gd;
@@ -41,15 +41,15 @@ public class Setting {
 		return isPlayerTunnelling;
 	}
 
-	public boolean isMonsterInvisible() {
+	public static boolean isMonsterInvisible() {
 		return isMonsterInvisible;
 	}
 
-	public boolean isMonsterLeaping() {
+	public static boolean isMonsterLeaping() {
 		return isMonsterLeaping;
 	}
 
-	public boolean isMonsterReproducing() {
+	public static boolean isMonsterReproducing() {
 		return isMonsterReproducing;
 	}
 
