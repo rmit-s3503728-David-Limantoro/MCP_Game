@@ -3,7 +3,7 @@
  */
 
 public abstract class Moveable {
-	protected char currentDirection;
+//	protected char currentDirection;
 	protected Cell currentCell;
 	protected Grid grid;
 	protected Cell destinationCell;
