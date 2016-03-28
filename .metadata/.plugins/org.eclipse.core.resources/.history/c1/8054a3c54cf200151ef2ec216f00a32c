@@ -1,8 +1,0 @@
-
-public class Score {
-	private int[] scores;
-
-	public void updateScore(int newScore) {
-
-	}
-}

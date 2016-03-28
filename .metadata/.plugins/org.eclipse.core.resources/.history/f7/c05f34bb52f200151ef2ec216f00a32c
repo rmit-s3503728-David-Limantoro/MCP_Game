@@ -1,6 +1,0 @@
-
-public class Saving {
-	public void createNewUser(String userName, String password){
-		
-	}
-}
