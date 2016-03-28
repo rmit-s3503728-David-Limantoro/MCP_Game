@@ -12,8 +12,9 @@ public abstract class Monster extends Moveable {
 	   player = p;
 	   setCell(grid.getCell(row,col));
 	}
-	public Cell move()
+	public void move(Cell nextCell)
 	{
+		super.setCell(nextCell);
 //		currentDirection = grid.getBestDirection(currentCell, player.getCell());
 //        currentCell = (grid.getCell(getCell(),getDirection()));
 //        return currentCell;
