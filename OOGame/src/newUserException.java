@@ -1,8 +1,8 @@
 
-public class newUserException extends Exception {
+public class NewUserException extends Exception {
 	private String invalidUserName;
 
-	public newUserException(String invalidUserName) {
+	public NewUserException(String invalidUserName) {
 		this.setInvalidUserName(invalidUserName);
 	}
 

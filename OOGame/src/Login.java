@@ -16,9 +16,9 @@ public class Login {
 
 			try {
 				if (userName == userList.get(i).getName()) {
-					throw new newUserException(userName);
+					throw new NewUserException(userName);
 				}
-			} catch (newUserException nue) {
+			} catch (NewUserException nue) {
 				System.out
 						.println("Cannot create new user because \"" + nue.getInvalidUserName() + "\" already exists.");
 			}
