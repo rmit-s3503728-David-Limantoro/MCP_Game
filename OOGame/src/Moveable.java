@@ -12,7 +12,7 @@ public abstract class Moveable {
 		grid = g;
 	}
 	
-	public abstract void move(Cell destinationCell);
+	public abstract void move();
 
 ////	public void setDirection(char d) {
 //		currentDirection = d;
