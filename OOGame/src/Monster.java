@@ -52,6 +52,14 @@ public abstract class Monster extends Moveable {
 		countdown += 10;
 	}
 	
+	public int getSkillTimer() {
+		return skilltimer;
+	}
+	
+	public void setSkillTimer(int sk) {
+		skilltimer += sk;
+	}
+	
 	public int getMonsterSpeed() {
 		return monsterspeed;
 	}
@@ -63,21 +71,17 @@ public abstract class Monster extends Moveable {
 	public Cell calculateDistance(Cell currentCell, Cell finaldestination)
 	{ 
 		skillCheck(); //checking if the skills are available for use
-		if (destinationCell != null) { //if the leaping method has been used, destinationCell has now been set to a valid Cell and so the rest of the calculation is not necessary. If it hasn't been set, then the targetCell hasn't been found yet.
+		if (destinationCell != null) { //if the leaping method has been used, destinationCell has now been set to a valid Cell and so the rest of the calculation is not necessary. If it hasn't been set, then the destinationCell hasn't been found yet.
 			//calculate the next cell the object will move into
 		}
 		return destinationCell;
 		}
 	
 	public void skillCheck() {
-		if (skilltimer == 0) { //if the skill timer is 0, the most important priority for the monster is to try to leap and eat the player.
+		if (skilltimer == 0 && Setting.isMonsterLeaping() == true) { //if the skill timer is 0, the most important priority for the monster is to try to leap and eat the player.
 			destinationCell = leaping(); //the destinationcell is set to the player's location
 			}
-		if (skilltimer == 0) { //and if monster is an adult)
-			//call the reproduce method from MonsterAdult 
-			skilltimer = 10;
-			}
-		if (skilltimer == 0) { //if neither of the other options is available, monster will turn invisible
+		if (skilltimer == 0 && Setting.isMonsterInvisible() == true) { //if neither of the other options is available, monster will turn invisible
 			invisible();
 			skilltimer = 10;
 		}
