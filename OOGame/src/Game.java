@@ -29,11 +29,13 @@ public class Game extends JFrame {
 	 * UI. It throws an exception if an attempt is made to place the player or
 	 * the monster in an invalid location.
 	 */
+	
+	
 	public Game() throws Exception {
 		grid = new Grid();
 		player = new Player(grid, 0, 0);
 		monster = new ArrayList<Monster>();
-		monster.add(new MonsterAdult(grid, player, 5, 5));
+		monster.add(new MonsterAdult(grid, player, 5, 5, monster));
 		bp = new BoardPanel(grid, player, monster.get(0));
 
 		// Create a separate panel and add all the buttons
@@ -86,6 +88,12 @@ public class Game extends JFrame {
 
 			for (int x = 0; x < monster.size(); x++) {
 				if (monster.get(x) instanceof MonsterInfant) {
+					if (((MonsterInfant)monster.get(x)).checktime() == 0) {
+						//replace MonsterChild with MonsterInfant
+						monster.add(new MonsterChild(monster.get(x).grid, player, monster.get(x).getCell().row, monster.get(x).getCell().col, monster));
+						monster.remove(x);
+						break;
+					}
 					((MonsterInfant)monster.get(x)).reducecountdownToChild();
 				}
 			}
