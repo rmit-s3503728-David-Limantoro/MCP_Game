@@ -11,13 +11,14 @@ public abstract class Moveable {
 	public Moveable(Grid g) {
 		grid = g;
 	}
+	
+	public abstract void move(Cell destinationCell);
 
-
-	public void setDirection(char d) {
-		currentDirection = d;
-	}
-
-//	public char getDirection() {
+////	public void setDirection(char d) {
+//		currentDirection = d;
+//	}
+//
+////	public char getDirection() {
 //		return currentDirection;
 //	}
 
@@ -28,6 +29,4 @@ public abstract class Moveable {
 	public Cell getCell() {
 		return currentCell;
 	}
-
-	public abstract Cell move();
 }
