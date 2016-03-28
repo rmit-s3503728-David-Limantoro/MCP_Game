@@ -3,7 +3,7 @@
  */
 
 public abstract class Moveable {
-	protected char currentDirection;
+	//protected char currentDirection;
 	protected Cell currentCell;
 	protected Grid grid;
 	protected Cell destinationCell;
@@ -11,11 +11,12 @@ public abstract class Moveable {
 	public Moveable(Grid g) {
 		grid = g;
 	}
+	
+	public abstract void move (Cell nextcell);
 
-
-	public void setDirection(char d) {
-		currentDirection = d;
-	}
+//	public void setDirection(char d) {
+//		currentDirection = d;
+//	}
 
 //	public char getDirection() {
 //		return currentDirection;
@@ -29,5 +30,5 @@ public abstract class Moveable {
 		return currentCell;
 	}
 
-	public abstract Cell move();
+//	public abstract Cell move();
 }
