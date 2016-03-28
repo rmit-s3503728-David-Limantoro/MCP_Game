@@ -23,6 +23,7 @@ public class Game extends JFrame {
 	private Player player;
 	private ArrayList<Monster> monster;
 	private BoardPanel bp;
+	private GameInputHandler gih;
 
 	/*
 	 * This constructor creates the main model objects and the panel used for
@@ -37,6 +38,7 @@ public class Game extends JFrame {
 		monster = new ArrayList<Monster>();
 		monster.add(new MonsterAdult(grid, player, 5, 5, monster));
 		bp = new BoardPanel(grid, player, monster.get(0));
+		gih = new GameInputHandler(player);
 
 		// Create a separate panel and add all the buttons
 		JPanel panel = new JPanel();
@@ -48,11 +50,11 @@ public class Game extends JFrame {
 		panel.add(mLabel);
 
 		// add Action listeners to all button events
-		up.addActionListener(bp);
-		down.addActionListener(bp);
-		left.addActionListener(bp);
-		right.addActionListener(bp);
-		start.addActionListener(bp);
+		up.addActionListener(gih);
+		down.addActionListener(gih);
+		left.addActionListener(gih);
+		right.addActionListener(gih);
+		start.addActionListener(gih);
 
 		// add panels to frame
 		add(bp, BorderLayout.CENTER);

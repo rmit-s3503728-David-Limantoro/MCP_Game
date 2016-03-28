@@ -1,0 +1,8 @@
+
+public class GameInputHandler {
+	Player player;
+
+	public GameInputHandler(Player player) {
+		player = this.player;
+	}
+}

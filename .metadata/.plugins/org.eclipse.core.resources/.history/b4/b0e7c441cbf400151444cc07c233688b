@@ -1,0 +1,27 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+public class GameInputHandler implements ActionListener {
+	Player player;
+
+	public GameInputHandler(Player player) {
+		this.player = player;
+	}
+
+	/* responds to various button clicked messages */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (((JButton) e.getSource()).getText().compareTo("up") == 0)
+			setDestination('U');
+		else if (((JButton) e.getSource()).getText().compareTo("down") == 0)
+			setDestination('D');
+		else if (((JButton) e.getSource()).getText().compareTo("left") == 0)
+			setDestination('L');
+		else if (((JButton) e.getSource()).getText().compareTo("right") == 0)
+			setDestination('R');
+		else if (((JButton) e.getSource()).getText().compareTo("start") == 0)
+			setReady(true);
+	}
+}

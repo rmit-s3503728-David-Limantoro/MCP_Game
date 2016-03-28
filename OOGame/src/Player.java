@@ -7,20 +7,34 @@ public class Player extends Moveable {
 	public Player(Grid g, int row, int col) throws Exception {
 		super(g);
 		currentCell = grid.getCell(row, col);
-		currentDirection = ' ';
 		setEnergy(60);
 	}
 
 	public Player(Grid g, int row, int col, int initEnergy) throws Exception {
 		super(g);
 		currentCell = grid.getCell(row, col);
-		currentDirection = ' ';
 		setEnergy(initEnergy);
 	}
 
-	public Cell move() {
-		currentCell = grid.getCell(currentCell, currentDirection);
-		return currentCell;
+	public void move() {
+		currentCell = destinationCell;
+	}
+
+	public void setDestination(char direction) {
+		switch (direction) {
+		case 'U': {
+			destinationCell = new Cell(currentCell.col - 1, currentCell.row);
+		}
+		case 'D': {
+
+		}
+		case 'L': {
+
+		}
+		case 'R': {
+
+		}
+		}
 	}
 
 	public Cell move(Cell destCell) {
@@ -49,4 +63,5 @@ public class Player extends Moveable {
 	public void setEnergy(int energy) {
 		this.energy = energy;
 	}
+
 }
