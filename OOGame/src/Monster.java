@@ -21,10 +21,21 @@ public abstract class Monster extends Moveable {
 	}
 	
 	@Override
-	public void move(Cell nextCell)
-	{
-		super.setCell(nextCell);
+	public void move() { //called every 'tick'/'round'
+		setCell(calculateDistance(this.currentCell, player.currentCell)); // 'Set Cell' moves the monster to the 'next location', which is provided by the calculateDistance function, which takes the current location and the final location to determined the 'next location'
 		destinationCell = null;
+		if (countdown > 0) { //if the countdown is greater than 0 (because the Monster is stuck somewhere, reduce the countdown by the monster's speed
+			countdown -= monsterspeed;
+		}
+		if (skilltimer > 0) { //if the skilltimer is greater than 0 because a skill has been used recently, reduce it by 1
+			skilltimer -= 1;
+		}
+		if (visibleCountdown > 0) { //if the monster is invisible, reduce the timer by 1
+			visibleCountdown -= 1;
+		}
+		if (visibleCountdown == 0) { //if the visiblecountdown has reached 0, set the monster to be visible again
+			isVisible = true;
+		}
 	}
 	
 	public boolean viewable()  // can be used for hiding
@@ -38,6 +49,7 @@ public abstract class Monster extends Moveable {
 	
 	public void setTrapped() {
 		isTrapped = true;
+		countdown += 10;
 	}
 	
 	public int getMonsterSpeed() {
@@ -58,32 +70,29 @@ public abstract class Monster extends Moveable {
 		}
 	
 	public void skillCheck() {
-		if (skilltimer == 0) {
-			Cell dCell = leaping();
-			if (dCell != null) {
-				destinationCell = dCell;
+		if (skilltimer == 0) { //if the skill timer is 0, the most important priority for the monster is to try to leap and eat the player.
+			destinationCell = leaping(); //the destinationcell is set to the player's location
 			}
-		}
 		if (skilltimer == 0) { //and if monster is an adult)
 			//call the reproduce method from MonsterAdult 
 			skilltimer = 10;
 			}
-		if (skilltimer == 0) {
+		if (skilltimer == 0) { //if neither of the other options is available, monster will turn invisible
 			invisible();
 			skilltimer = 10;
 		}
 	}
 	
 	public Cell leaping() {
-		if (player.getCell().row == this.getCell().row) {
-			if (player.getCell().row % 5 == 0) {
-				if (player.getCell().col <= (this.getCell().col + 3)
+		if (player.getCell().row == this.getCell().row) { //if the monster and player are on the same row
+			if (player.getCell().row % 5 == 0) { //if the player is on one of the cross-rows (ie. jumping is not blocked by a swamp)
+				if (player.getCell().col <= (this.getCell().col + 3) //if the player is within 3 cells of the monster
 						&& player.getCell().col >= (this.getCell().col - 3)) {
-					skilltimer = 10;
-					return player.getCell();
+					skilltimer = 10; //increase the skill timer so that the ability can't be used too frequently
+					return player.getCell(); //return the player's cell as that is where the monster will jump to
 				}
 			}
-		} else if (player.getCell().col == this.getCell().col) {
+		} else if (player.getCell().col == this.getCell().col) { //if the monster and player are in the same column
 			if (player.getCell().col % 5 == 0) {
 				if (player.getCell().row <= (this.getCell().row + 3)
 						&& player.getCell().row >= (this.getCell().row - 3)) {
@@ -99,11 +108,9 @@ public abstract class Monster extends Moveable {
 	
 	public void invisible () {
 		isVisible = false;
-		countdown = 5;
+		visibleCountdown = 5;
 		skilltimer = 10;
-		while (countdown > 0) {
-			countdown -= 1;
-		}
+		isVisible = true;
 	}
 	
 	public abstract int checktime();
