@@ -10,12 +10,20 @@ public class Cell {
 	public Cell(int i, int j, int eU) {
 		row = i;
 		col = j;
-		energyUsed = eU;
+		setEnergyUsed(eU);
 	}
 
 	public Cell(int i, int j) {
 		row = i;
 		col = j;
-		energyUsed = 2;
+		setEnergyUsed(2);
+	}
+
+	public int getEnergyUsed() {
+		return energyUsed;
+	}
+
+	public void setEnergyUsed(int energyUsed) {
+		this.energyUsed = energyUsed;
 	}
 }
