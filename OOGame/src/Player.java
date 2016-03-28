@@ -63,4 +63,5 @@ public class Player extends Moveable {
 	public void setEnergy(int energy) {
 		this.energy = energy;
 	}
+
 }

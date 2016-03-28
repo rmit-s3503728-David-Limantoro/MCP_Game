@@ -1,0 +1,72 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+/*  This class encapsulates player position and direction  
+ */
+public class Player extends Moveable {
+	private boolean readyToStart = false;
+	private int energy = 0;
+
+	public Player(Grid g, int row, int col) throws Exception {
+		super(g);
+		currentCell = grid.getCell(row, col);
+		setEnergy(60);
+	}
+
+	public Player(Grid g, int row, int col, int initEnergy) throws Exception {
+		super(g);
+		currentCell = grid.getCell(row, col);
+		setEnergy(initEnergy);
+	}
+
+	public void move() {
+		currentCell = destinationCell;
+	}
+
+	public void setDestination(char direction) {
+		switch (direction) {
+		case 'U': {
+			destinationCell = new Cell(currentCell.col - 1, currentCell.row);
+		}
+		case 'D': {
+
+		}
+		case 'L': {
+
+		}
+		case 'R': {
+
+		}
+		}
+	}
+
+	public Cell move(Cell destCell) {
+		try {
+			currentCell = grid.getCell(destCell.col, destCell.row);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setEnergy(getEnergy() - currentCell.getEnergyUsed());
+		return currentCell;
+	}
+
+	public void setReady(boolean val) {
+		readyToStart = val;
+	}
+
+	public boolean isReady() {
+		return readyToStart;
+	}
+
+	public int getEnergy() {
+		return energy;
+	}
+
+	public void setEnergy(int energy) {
+		this.energy = energy;
+	}
+
+}
