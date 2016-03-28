@@ -3,12 +3,19 @@
 public class Player extends Moveable {
 	private boolean readyToStart = false;
 	private int energy = 0;
-	private int energyUsed = 0;
 
 	public Player(Grid g, int row, int col) throws Exception {
 		super(g);
 		currentCell = grid.getCell(row, col);
 		currentDirection = ' ';
+		setEnergy(60);
+	}
+
+	public Player(Grid g, int row, int col, int initEnergy) throws Exception {
+		super(g);
+		currentCell = grid.getCell(row, col);
+		currentDirection = ' ';
+		setEnergy(initEnergy);
 	}
 
 	public Cell move() {
@@ -23,7 +30,7 @@ public class Player extends Moveable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		energyUsed -= currentCell.getEnergyUsed();
+		setEnergy(getEnergy() - currentCell.getEnergyUsed());
 		return currentCell;
 	}
 
@@ -33,5 +40,13 @@ public class Player extends Moveable {
 
 	public boolean isReady() {
 		return readyToStart;
+	}
+
+	public int getEnergy() {
+		return energy;
+	}
+
+	public void setEnergy(int energy) {
+		this.energy = energy;
 	}
 }

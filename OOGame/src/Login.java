@@ -11,11 +11,30 @@ public class Login {
 	}
 
 	public void createNewUser(String userName, String password) {
+		// Check for duplicate username
+		for (int i = 0; i < userList.size(); i++) {
+
+			try {
+				if (userName == userList.get(i).getName()) {
+					throw new newUserException(userName);
+				}
+			} catch (newUserException nue) {
+				System.out
+						.println("Cannot create new user because \"" + nue.getInvalidUserName() + "\" already exists.");
+			}
+		}
+
 		userList.add(new User(userName, password, "Address", "Name"));
 	}
 
 	public void loginUser(String userName, String password) {
 		// TODO check username and password
+		for (int i = 0; i < userList.size(); i++) {
+			if (userName == userList.get(i).getName() && password == userList.get(i).getPassword()) {
+				loggedInUser[0] = userList.get(i);
+				break;
+			}
+		}
 	}
 
 	public void logoutUser(int playerNumber) {
