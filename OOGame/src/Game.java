@@ -74,7 +74,7 @@ public class Game extends JFrame {
 	 * after which it updates the moves in turn until time runs out (player won)
 	 * or player is eaten up (player lost).
 	 */
-	public String play() {
+	public String play() throws Exception { 
 		int time = 0;
 		String message;
 		// player.setDirection(' '); // set to no direction
