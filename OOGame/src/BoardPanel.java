@@ -64,7 +64,9 @@ public class BoardPanel extends JPanel {
 		gr.drawString("P", xCor(cell.col) + CELLWIDTH / 3, yCor(cell.row) + 2 * CELLWIDTH / 3);
 
 		if (monster.viewable()) {
+			System.out.println("Has Seen");
 			cell = monster.getCell();
+			System.out.println(cell.col);
 			gr.setColor(Color.black);
 			gr.fillRect(xCor(cell.col), yCor(cell.row), CELLWIDTH, CELLHEIGHT);
 			gr.setColor(Color.white);

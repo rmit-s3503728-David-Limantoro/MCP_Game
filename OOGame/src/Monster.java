@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class Monster extends Moveable {
 	protected ArrayList<Monster> monsterArray;
 	private Player player;
-	private boolean isVisible;
+	private boolean isVisible = true;
 	private int monsterspeed;
 	protected int countdown;
 	private int skilltimer;
@@ -45,7 +45,7 @@ public abstract class Monster extends Moveable {
 																			// the
 																			// 'next
 																			// location'
-		destinationCell = null;
+		//destinationCell = null;
 		if (visibleCountdown > 0) { // if the monster is invisible, reduce the
 									// timer by 1
 			visibleCountdown -= 1;
@@ -95,10 +95,11 @@ public abstract class Monster extends Moveable {
 										// hasn't been set, then the
 										// destinationCell hasn't been found
 										// yet.
-			// calculate the next cell the object will move into
+			// calculate the next cell the object will move into. YOU IDIOT! FINISH YOUR CODE!!!!
 			// 
+			return currentCell;
 		}
-		return destinationCell;
+		return currentCell;
 	}
 
 	public void skillCheck() {
