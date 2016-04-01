@@ -4,7 +4,7 @@
 public class Cell {
 	protected int row;
 	protected int col;
-	private int energyUsed;
+	private int energyUsed = 2;
 	boolean gotGold = true;
 
 	public Cell(int i, int j, int eU) {

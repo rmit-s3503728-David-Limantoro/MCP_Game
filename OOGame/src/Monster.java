@@ -88,13 +88,9 @@ public abstract class Monster extends Moveable {
 
 	public Cell calculateDistance(Cell currentCell, Cell finaldestination) {
 		skillCheck(); // checking if the skills are available for use
-		if (destinationCell != null) { // if the leaping method has been used,
-										// destinationCell has now been set to a
-										// valid Cell and so the rest of the
-										// calculation is not necessary. If it
-										// hasn't been set, then the
-										// destinationCell hasn't been found
-										// yet.
+		if (destinationCell != null) { // if the leaping method has been used, destinationCell has now been set to a
+										// valid Cell and so the rest of the calculation is not necessary. If it
+										// hasn't been set, then the destinationCell hasn't been found yet.
 			// calculate the next cell the object will move into. YOU IDIOT! FINISH YOUR CODE!!!!
 			// 
 			return currentCell;
