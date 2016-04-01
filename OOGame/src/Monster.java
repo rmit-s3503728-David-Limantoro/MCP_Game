@@ -38,10 +38,7 @@ public abstract class Monster extends Moveable {
 		}
 		setCell(calculateDistance(this.currentCell, player.currentCell)); // 'Set Cell'moves the monster to the 'next location', which
 																			// is provided by the calculateDistance function, which takes
-																			// the current location
-																			// and
-																			// the
-																			// final
+																			// the current location and the final
 																			// location
 																			// to
 																			// determined
@@ -145,22 +142,10 @@ public abstract class Monster extends Moveable {
 	}
 
 	public Cell leaping() {
-		if (player.getCell().row == this.getCell().row) { // if the monster and
-															// player are on the
-															// same row
+		if (player.getCell().row == this.getCell().row) { // if the monster and player are on the same row
 			if (player.getCell().row % 5 == 0) { // if the player is on one of
-													// the cross-rows (ie.
-													// jumping is not blocked by
-													// a swamp)
-				if (player.getCell().col <= (this.getCell().col + 3) // if the
-																		// player
-																		// is
-																		// within
-																		// 3
-																		// cells
-																		// of
-																		// the
-																		// monster
+													//the cross-rows (ie. jumping is not blocked by a swamp)
+				if (player.getCell().col <= (this.getCell().col + 3) // if the player is within 3 cells of the monster
 						&& player.getCell().col >= (this.getCell().col - 3)) {
 					skilltimer = 10; // increase the skill timer so that the
 										// ability can't be used too frequently
@@ -168,8 +153,11 @@ public abstract class Monster extends Moveable {
 												// is where the monster will
 												// jump to
 				}
+				return this.currentCell;
 			}
-		} else if (player.getCell().col == this.getCell().col) { // if the
+			return this.currentCell;
+		} 
+		else if (player.getCell().col == this.getCell().col) { // if the
 																	// monster
 																	// and
 																	// player
@@ -182,10 +170,13 @@ public abstract class Monster extends Moveable {
 					skilltimer = 10;
 					return player.getCell();
 				}
+				return this.currentCell;
 			}
+			return this.currentCell;
 		}
-		Cell destinationCell = null;
-		return destinationCell;
+		else {
+			return this.currentCell;
+		}
 
 	}
 
