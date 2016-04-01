@@ -10,6 +10,7 @@ public class Player extends Moveable implements KeyListener {
 	public Player(Grid g, int row, int col) throws Exception {
 		super(g);
 		currentCell = grid.getCell(row, col);
+		destinationCell = grid.getCell(row, col);
 		setEnergy(60);
 	}
 

@@ -33,7 +33,7 @@ public class Game extends JFrame {
 
 	public Game() throws Exception {
 		grid = new Grid();
-		player = new Player(grid, 0, 0);
+		player = new Player(grid, 1, 0);
 		monster = new ArrayList<Monster>();
 		monster.add(new MonsterAdult(grid, player, 5, 5, monster));
 		bp = new BoardPanel(grid, player, monster.get(0));
