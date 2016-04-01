@@ -5,7 +5,7 @@ public class Cell {
 	protected int row;
 	protected int col;
 	private int energyUsed = 2;
-	boolean gotGold = true;
+	private int monsterCost = 1;
 
 	public Cell(int i, int j, int eU) {
 		row = i;
@@ -25,5 +25,9 @@ public class Cell {
 
 	public void setEnergyUsed(int energyUsed) {
 		this.energyUsed = energyUsed;
+	}
+	
+	public int getMonsterCost() {
+		return monsterCost;
 	}
 }

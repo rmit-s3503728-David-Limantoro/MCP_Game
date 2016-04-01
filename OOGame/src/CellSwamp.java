@@ -1,10 +1,14 @@
 
 public class CellSwamp extends Cell {
 	
-	int energyUsed = 2;
+	private int monsterCost = 2;
 	
 	public CellSwamp(int i, int j) {
 		super(i, j, 4);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public int getMonsterCost () {
+		return monsterCost;
 	}
 }
