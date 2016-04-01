@@ -30,8 +30,7 @@ public class Game extends JFrame {
 	 * UI. It throws an exception if an attempt is made to place the player or
 	 * the monster in an invalid location.
 	 */
-	
-	
+
 	public Game() throws Exception {
 		grid = new Grid();
 		player = new Player(grid, 0, 0);
@@ -78,25 +77,28 @@ public class Game extends JFrame {
 	public String play() {
 		int time = 0;
 		String message;
-		player.setDirection(' '); // set to no direction
+		// player.setDirection(' '); // set to no direction
 		while (!player.isReady())
 			delay(100);
 		do {
 
-			Cell newPlayerCell = player.move();
-			if (newPlayerCell == monster.get(0).getCell())
-				break;
-			player.setDirection(' '); // reset to no direction
+			// Cell newPlayerCell = player.move();
+			// if (newPlayerCell == monster.get(0).getCell())
+			// break;
+
+			player.move();
+			// player.setDirection(' '); // reset to no direction
 
 			for (int x = 0; x < monster.size(); x++) {
 				if (monster.get(x) instanceof MonsterInfant) {
-					if (((MonsterInfant)monster.get(x)).checktime() == 0) {
-						//replace MonsterChild with MonsterInfant
-						monster.add(new MonsterChild(monster.get(x).grid, player, monster.get(x).getCell().row, monster.get(x).getCell().col, monster));
+					if (((MonsterInfant) monster.get(x)).checktime() == 0) {
+						// replace MonsterChild with MonsterInfant
+						monster.add(new MonsterChild(monster.get(x).grid, player, monster.get(x).getCell().row,
+								monster.get(x).getCell().col, monster));
 						monster.remove(x);
 						break;
 					}
-					((MonsterInfant)monster.get(x)).reducecountdownToChild();
+					((MonsterInfant) monster.get(x)).reducecountdownToChild();
 				}
 			}
 			monster.get(0).move();
