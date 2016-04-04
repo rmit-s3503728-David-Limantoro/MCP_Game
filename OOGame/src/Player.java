@@ -11,7 +11,7 @@ public class Player extends Moveable implements KeyListener {
 		super(g);
 		currentCell = grid.getCell(row, col);
 		destinationCell = grid.getCell(row, col);
-		setEnergy(60);
+
 	}
 
 	public Player(Grid g, int row, int col, int initEnergy) throws Exception {
@@ -25,19 +25,14 @@ public class Player extends Moveable implements KeyListener {
 	}
 
 	public void setDestination(char direction) {
-		switch (direction) {
-		case 'U': {
+		if (direction == 'U') {
 			destinationCell = new Cell(currentCell.row - 1, currentCell.col);
-		}
-		case 'D': {
+		} else if (direction == 'D') {
 			destinationCell = new Cell(currentCell.row + 1, currentCell.col);
-		}
-		case 'L': {
+		} else if (direction == 'L') {
 			destinationCell = new Cell(currentCell.row, currentCell.col - 1);
-		}
-		case 'R': {
-			destinationCell = new Cell(currentCell.row, currentCell.col - 1);
-		}
+		} else if (direction == 'R') {
+			destinationCell = new Cell(currentCell.row, currentCell.col + 1);
 		}
 	}
 
@@ -45,7 +40,6 @@ public class Player extends Moveable implements KeyListener {
 		try {
 			currentCell = grid.getCell(destCell.col, destCell.row);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setEnergy(getEnergy() - currentCell.getEnergyUsed());
@@ -70,7 +64,6 @@ public class Player extends Moveable implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			destinationCell = new Cell(currentCell.row - 1, currentCell.col);
 		}

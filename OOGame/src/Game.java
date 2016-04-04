@@ -37,10 +37,10 @@ public class Game extends JFrame {
 		monster = new ArrayList<Monster>();
 		monster.add(new MonsterAdult(grid, player, 5, 5, monster));
 		bp = new BoardPanel(grid, player, monster.get(0));
-		gih = new GameInputHandler(player);
 
 		// Create a separate panel and add all the buttons
 		JPanel panel = new JPanel();
+		gih = new GameInputHandler(player, panel);
 		panel.add(up);
 		panel.add(down);
 		panel.add(left);
@@ -49,11 +49,20 @@ public class Game extends JFrame {
 		panel.add(mLabel);
 
 		// add Action listeners to all button events
+		up.addKeyListener(gih);
 		up.addActionListener(gih);
+		down.addKeyListener(gih);
 		down.addActionListener(gih);
+		left.addKeyListener(gih);
 		left.addActionListener(gih);
+		right.addKeyListener(gih);
 		right.addActionListener(gih);
+		start.addKeyListener(gih);
 		start.addActionListener(gih);
+		
+		panel.addKeyListener(new GameInputHandler(player, panel));
+		panel.setFocusable(true);
+		panel.requestFocus();
 
 		// add panels to frame
 		add(bp, BorderLayout.CENTER);
@@ -74,7 +83,7 @@ public class Game extends JFrame {
 	 * after which it updates the moves in turn until time runs out (player won)
 	 * or player is eaten up (player lost).
 	 */
-	public String play() throws Exception { 
+	public String play() throws Exception {
 		int time = 0;
 		String message;
 		// player.setDirection(' '); // set to no direction
