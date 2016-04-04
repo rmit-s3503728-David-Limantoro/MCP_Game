@@ -18,7 +18,7 @@ public class Game extends JFrame implements java.io.Serializable{
 	private transient JButton right = new JButton("right");
 	private transient JButton start = new JButton("start");
 	private transient JButton save = new JButton("Save");
-	private transient JButton load = new JButton("load");
+	private transient JButton load = new JButton("Load");
 	private transient JLabel mLabel = new JLabel("Time Remaining : " + TIMEALLOWED);
 
 	private Grid grid;
@@ -30,6 +30,7 @@ public class Game extends JFrame implements java.io.Serializable{
 	private Setting setting;
 	private Score score;
 	private Login login;
+	private int time;
 	
 
 	/*
@@ -43,8 +44,10 @@ public class Game extends JFrame implements java.io.Serializable{
 		player = new Player(grid, 1, 0);
 		monster = new ArrayList<Monster>();
 		setting = new Setting();
+		score = new Score();
+		login = new Login();
 		monster.add(new MonsterAdult(grid, player, 5, 5, monster, setting));
-		bp = new BoardPanel(grid, player, monster.get(0));
+		bp = new BoardPanel(grid, player, monster);
 		gih = new GameInputHandler(player);
 		goh = new GameOptionsHandler(this);
 
@@ -89,7 +92,7 @@ public class Game extends JFrame implements java.io.Serializable{
 	 * or player is eaten up (player lost).
 	 */
 	public String play() throws Exception { 
-		int time = 0;
+		time = 0;
 		String message;
 		// player.setDirection(' '); // set to no direction
 		while (!player.isReady())
@@ -138,28 +141,30 @@ public class Game extends JFrame implements java.io.Serializable{
 
 	public void savegame() {
 		Saving saveclass = new Saving(this);
-		saveclass.savegame(login, score, grid.cells2D, grid.cells, monster, player, setting);
+		saveclass.savegame(login, score, grid.cells2D, grid.cells, monster, player, setting, time);
 	}
 	
 	public void loadgame() {
 		Saving saveclass = new Saving(this);
-		saveclass.loadGame();
+		saveclass.loadSavedGame();
 	}
 	
-	public void setUpGameOnLoad(Login log, Score s, Cell[][] cel2d, Cell[] c, ArrayList<Monster> m, Player p, Setting set) {
+	public void setUpGameOnLoad(Login log, Score s, Cell[][] cel2d, Cell[] c, ArrayList<Monster> m, Player p, Setting set, int t) {
 		login = log;
 		score = s;
 		grid.cells2D = cel2d;
 		grid.cells = c;
+		monster.clear();
 		monster = m;
+		System.out.println("Monster loaded to position: " + monster.get(0).currentCell.col + " " + monster.get(0).currentCell.row);
 		player = p;
 		setting = set;
+		time = t;
+		System.out.println("Game Uploaded. Time Elapsed: " + time);
 	}
 	
 	public static void main(String args[]) throws Exception {
 		Game game = new Game();
-		game.score = new Score();
-		game.login = new Login();
 		game.setTitle("Monster Game");
 		game.setSize(700, 700);
 		game.setLocationRelativeTo(null); // center the frame

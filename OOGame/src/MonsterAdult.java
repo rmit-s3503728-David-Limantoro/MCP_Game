@@ -37,7 +37,7 @@ public class MonsterAdult extends Monster {
 				 //TODO whatever I want it to do 
 			}
 		}
-		if (getSkillTimer() == 0) { // if neither of the other options is
+		if (getSkillTimer() == 0 && super.getGameSettings().isMonsterInvisible() == true) { // if neither of the other options is
 									// available, monster will turn invisible
 			invisible();
 			setSkillTimer(10);

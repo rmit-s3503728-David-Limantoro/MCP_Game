@@ -94,67 +94,106 @@ public abstract class Monster extends Moveable {
 	
 	public Cell calculateDistance(Cell currentCell, Cell finaldestination) {
 		skillCheck(); // checking if the skills are available for use
-		if (destinationCell != null) { // if the leaping method has been used, destinationCell has now been set to a
+		if (destinationCell != currentCell) { // if the leaping method has been used, destinationCell has now been set to a
 										// valid Cell and so the rest of the calculation is not necessary. If it
 										// hasn't been set, then the destinationCell hasn't been found yet.
-			// calculate the next cell the object will move into. YOU IDIOT! FINISH YOUR CODE!!!!
+			// TODO calculate the next cell the object will move into. YOU IDIOT! FINISH YOUR CODE!!!!
 			
 			//the new Cell class is necessary because there is no link to the parent Cell in the original Cell class
-			ArrayList<CellforAITracking> openList = new ArrayList<CellforAITracking>();
-			ArrayList<CellforAITracking> closedList = new ArrayList<CellforAITracking>();
-			openList.add(new CellforAITracking(currentCell, currentCell));
-			while (openList != null) {
-				CellforAITracking currentcell = openList.get(0);
+			ArrayList<Cell> openList = new ArrayList<Cell>();
+			ArrayList<Cell> closedList = new ArrayList<Cell>();
+			openList.add(currentCell);
+			Cell currentcell = currentCell; //set to currentCell to ensure there is some initialization
+			while (openList.isEmpty() == false) {
+				double lowestscore = 100.0;
+				//setting the currentcell to whichever member of the openList has the lowestCost()
 				for (int x = 0; x < openList.size(); x++) {
-					if (openList.get(x).getCalculatedCost() < currentcell.getCalculatedCost()) {
-						currentcell = openList.get(x);
-					}
+						if (openList.get(x).getScore() < lowestscore){
+							lowestscore = openList.get(x).getScore();
+							currentcell = openList.get(x);
+						}
 				}
-				if (currentcell.getSelectedCell() == player.currentCell) {
-					//path is finished
-					break;
+				if (currentcell == finaldestination) {
+					Cell neighbour = currentcell;
+					//trace back along path to find what the neighbouring cell is
+					do {
+						currentcell = neighbour;
+						neighbour = currentcell.getParentCell();
+					} while (neighbour != this.currentCell);
+					return currentcell;
 				}
 				else {
 					closedList.add(currentcell);
+					openList.remove(currentcell);
+					//iterate through the adjacent cells
+					for (int x = -1; x < 2; x ++) {
+						for (int y = -1; y < 2; y++) {
+							if ((currentcell.row + x) >= 0
+									&& (currentcell.row + x) < 11 
+									&& (currentcell.col + y) >= 0 
+									&& (currentcell.col + y) < 11) {
+								Cell cellbeingchecked = grid.cells2D[currentcell.row + x][currentcell.col + y];
+								if (cellbeingchecked.isitValid() == true) {
+									// open list does not contain cellbeingchecked
+									if (openList.contains(cellbeingchecked)) {
+										// move to end of loop to begin again
+										//check if new score is less than old score, if so change the parent cell
+										int cost = currentcell.getCalculatedCost()
+												+ cellbeingchecked.getMonsterCost();
+										int length = Math.abs(finaldestination.row - cellbeingchecked.row);
+										int height = Math.abs(finaldestination.col - cellbeingchecked.col);
+										//hypotoneuse calculated through square root of the difference between x and y 2
+										double h = Math.sqrt((length * length) + (height * height));
+										if ((cost + h) < cellbeingchecked.getScore()) {
+											cellbeingchecked.setParentCell(currentcell);
+											cellbeingchecked.setCalculatedCost(cost);
+											cellbeingchecked.setHeuristicvalue(h);
+											cellbeingchecked.setScore(cost + h);
+										}
+										continue;
+									} 
+									else {
+										// closed list does not contain
+										// cellbeingchecked
+										if (closedList.contains(cellbeingchecked)) {
+											// move to end of while loop to
+											// begin again
+											continue;
+										} 
+										else {
+											//cost is the cost from the monster's current location to the cellbeingchecked
+											cellbeingchecked.setParentCell(currentcell);
+											int cost = currentcell.getCalculatedCost()
+													+ cellbeingchecked.getMonsterCost();
+											int length = Math.abs(finaldestination.row - cellbeingchecked.row);
+											int height = Math.abs(finaldestination.col - cellbeingchecked.col);
+											//hypotoneuse calculated through square root of the difference between x and y 2
+											double h = Math.sqrt((length * length) + (height * height));
+											//score is the cost of movement and the predicted distance to the target
+											double score = cost + h; 
+											//added heuristic value to this
+											cellbeingchecked.setCalculatedCost(cost);
+											cellbeingchecked.setHeuristicvalue(h);
+											cellbeingchecked.setScore(score);
+											openList.add(cellbeingchecked);											
+										}
+									}
+								} else {
+									closedList.add(cellbeingchecked);
+								}
+							}
+						}
+					}
 				}
-/*			
-
-				Else
-					Move current Cell to the closed list
-					Iterate through each cell adjacent to the current Cell
-						If (currentCell.isValid == true) { 
-							^^ openList.contains(currentCell)
-								And it isn't on the closed list
-									Move it to the open list
-									Calculate the cost
-									}*/
 			}
-
 			return currentCell;
 		}
 		return currentCell;
 	}
 
 	public void skillCheck() {
-		if (skilltimer == 0 && settings.isMonsterLeaping() == true) { // if the
-																		// skill
-																		// timer
-																		// is 0,
-																		// the
-																		// most
-																		// important
-																		// priority
-																		// for
-																		// the
-																		// monster
-																		// is to
-																		// try
-																		// to
-																		// leap
-																		// and
-																		// eat
-																		// the
-																		// player.
+		// if the skill timer is 0, the most important priority for the monster is to try to leap and eat the player.
+		if (skilltimer == 0 && settings.isMonsterLeaping() == true) { 
 			destinationCell = leaping(); // the destinationcell is set to the
 											// player's location
 		}
@@ -218,7 +257,6 @@ public abstract class Monster extends Moveable {
 		isVisible = false;
 		visibleCountdown = 5;
 		skilltimer = 10;
-		isVisible = true;
 	}
 
 	public abstract int checktime();

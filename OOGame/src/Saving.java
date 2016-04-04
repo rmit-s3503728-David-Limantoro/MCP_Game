@@ -13,7 +13,7 @@ public class Saving implements java.io.Serializable{
 		game = g;
 	}
 
-	public void savegame(Login log, Score s, Cell[][] cel2d, Cell[] c, ArrayList<Monster> m, Player p, Setting set) {
+	public void savegame(Login log, Score s, Cell[][] cel2d, Cell[] c, ArrayList<Monster> m, Player p, Setting set, int t) {
 		SaveGameFile sgf = new SaveGameFile();
 		sgf.login = log;
 		sgf.scores = s;
@@ -22,27 +22,31 @@ public class Saving implements java.io.Serializable{
 		sgf.monsters = m;
 		sgf.player = p;
 		sgf.settings = set;
+		sgf.timeelapsed = t;
 		try {
 			FileOutputStream savefile = new FileOutputStream("SaveGame.ser");
 			ObjectOutputStream out = new ObjectOutputStream(savefile);
 			out.writeObject(sgf);
 			out.close();
 			savefile.close();
+			System.out.println("Game Saved. Time Elapsed: " + sgf.timeelapsed);
 		} catch (IOException i) {
 			System.err.println("SaveGameFile has not been saved.");
 			return;
 		}
 	}
 
-	public void loadGame() {
+	public void loadSavedGame() {
 		SaveGameFile sgf = new SaveGameFile();
+		System.out.println("File Opened");
 		try {
-			FileInputStream loadfile = new FileInputStream("GameManager.ser");
+			FileInputStream loadfile = new FileInputStream("SaveGame.ser");
 			ObjectInputStream in = new ObjectInputStream(loadfile);
 			sgf = (SaveGameFile)in.readObject();
 			in.close();
 			loadfile.close();
-			game.setUpGameOnLoad(sgf.login, sgf.scores, sgf.cells2d, sgf.cells, sgf.monsters, sgf.player, sgf.settings);
+			game.setUpGameOnLoad(sgf.login, sgf.scores, sgf.cells2d, sgf.cells, sgf.monsters, sgf.player, sgf.settings, sgf.timeelapsed);
+			System.out.println("Game Loaded. Time Elapsed: " + sgf.timeelapsed);
 		}
 		
 		catch (IOException i) {
@@ -63,5 +67,6 @@ public class Saving implements java.io.Serializable{
 		private ArrayList<Monster> monsters = new ArrayList<Monster>();
 		private Player player;
 		private Setting settings;
+		private int timeelapsed;
 	}
 }

@@ -17,6 +17,10 @@ public class Grid implements java.io.Serializable{
 					cells2D[i][j] = new Cell(i, j, 2, true);
 					cells[k++] = cells2D[i][j];
 				}
+				else {
+					cells2D[i][j] = new Cell(i,j, 2, false);
+//					cells[k++] = cells2D[i][j];
+				}
 	}
 
 	/*

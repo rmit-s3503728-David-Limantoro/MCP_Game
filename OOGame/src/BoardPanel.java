@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -12,7 +13,7 @@ import java.awt.*;
 public class BoardPanel extends JPanel {
 
 	private Player player;
-	private Monster monster;
+	private ArrayList<Monster> monster;
 	private Grid grid;
 	private Graphics gr;
 	private Game game;
@@ -21,7 +22,7 @@ public class BoardPanel extends JPanel {
 	private final int LMARGIN = 100;
 	private final int TMARGIN = 100;
 
-	public BoardPanel(Grid g, Player p, Monster m) {
+	public BoardPanel(Grid g, Player p, ArrayList<Monster> m) {
 		player = p;
 		grid = g;
 		monster = m;
@@ -63,9 +64,8 @@ public class BoardPanel extends JPanel {
 		gr.setColor(Color.white);
 		gr.drawString("P", xCor(cell.col) + CELLWIDTH / 3, yCor(cell.row) + 2 * CELLWIDTH / 3);
 
-		if (monster.viewable()) {
-			System.out.println("Has Seen");
-			cell = monster.getCell();
+		if (monster.get(0).viewable() == true) {
+			cell = monster.get(0).getCell();
 			System.out.println(cell.col);
 			gr.setColor(Color.black);
 			gr.fillRect(xCor(cell.col), yCor(cell.row), CELLWIDTH, CELLHEIGHT);
