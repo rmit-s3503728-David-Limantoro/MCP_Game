@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class SettingWindow {
+	private Setting gameSetting;
+	private JFrame settingWindowFrame;
+	private ArrayList<JLabel> optionLabels;
+	
+	public SettingWindow(Setting initialSetting) {
+		gameSetting = initialSetting;
+	}
+	
+	
+	
+}

@@ -1,0 +1,12 @@
+
+public class SettingWindow {
+	private Setting gameSetting;
+	JFrame
+	
+	public SettingWindow(Setting initialSetting) {
+		gameSetting = initialSetting;
+	}
+	
+	
+	
+}

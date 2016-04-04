@@ -1,0 +1,20 @@
+import java.util.ArrayList;
+
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class SettingWindow {
+	private Setting gameSetting;
+	private JFrame settingWindowFrame;
+	private ArrayList<JLabel> optionLabels;
+	private ArrayList<JCheckBox> optionCheckboxes;
+
+	public SettingWindow(Setting initialSetting) {
+		gameSetting = initialSetting;
+		settingWindowFrame = new JFrame("Setting");
+		optionLabels = new ArrayList<JLabel>();
+		optionCheckboxes = new ArrayList<JCheckBox>();
+	}
+
+}

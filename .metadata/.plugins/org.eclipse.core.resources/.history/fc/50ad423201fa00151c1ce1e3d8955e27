@@ -1,0 +1,69 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class SettingWindow {
+	private Setting gameSetting;
+	private JFrame settingWinFrame;
+	private ArrayList<JLabel> optionLabels;
+	private ArrayList<JCheckBox> optionCheckboxes;
+	private ArrayList<JButton> optionButtons;
+	private SettingWindowListener swl;
+
+	private class SettingWindowListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+
+	public SettingWindow(Setting initialSetting) {
+		gameSetting = initialSetting;
+		settingWinFrame = new JFrame("Setting");
+		optionLabels = new ArrayList<JLabel>();
+		optionCheckboxes = new ArrayList<JCheckBox>();
+		optionButtons = new ArrayList<JButton>();
+
+		optionLabels.add(new JLabel("Player's Skill"));
+		optionLabels.add(new JLabel("Monster's Skill"));
+
+		optionCheckboxes.add(new JCheckBox("Player able to skip panels"));
+		optionCheckboxes.add(new JCheckBox("Player able to set up trap"));
+		optionCheckboxes.add(new JCheckBox("Player able to create tunnels"));
+		optionCheckboxes.add(new JCheckBox("Monster able to skip panels"));
+		optionCheckboxes.add(new JCheckBox("Monster able to turn invisible"));
+		optionCheckboxes.add(new JCheckBox("Monster able to create offspring"));
+
+		optionButtons.add(new JButton("OK"));
+		optionButtons.add(new JButton("Cancel"));
+		
+	}
+	
+	public void addButton(String text){
+		optionButtons.add(new JButton(text));
+		optionButtons.get(optionButtons.size()).addActionListener(swl);
+	}
+	
+	public void addLabel(String text){
+		
+	}
+	
+	public void addCheckBox(String text){
+		
+	}
+
+	public void setSettingWinFrame(JFrame settingWinFrame) {
+		this.settingWinFrame = settingWinFrame;
+	}
+
+	public JFrame getSettingWinFrame() {
+		return settingWinFrame;
+	}
+
+}

@@ -1,0 +1,80 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class SettingWindow {
+	private Setting gameSetting;
+	private JFrame settingWinFrame;
+	private ArrayList<JLabel> optionLabels;
+	private ArrayList<JCheckBox> optionCheckboxes;
+	private ArrayList<JButton> optionButtons;
+	private SettingWindowButtonListener swbl;
+	private SettingWindowCheckboxListener swcl;
+
+	private class SettingWindowButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	private class SettingWindowCheckboxListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	public SettingWindow(Setting initialSetting) {
+		gameSetting = initialSetting;
+		settingWinFrame = new JFrame("Setting");
+		optionLabels = new ArrayList<JLabel>();
+		optionCheckboxes = new ArrayList<JCheckBox>();
+		optionButtons = new ArrayList<JButton>();
+
+		addLabel("Player's Skill");
+		addLabel("Monster's Skill");
+
+		addCheckBox("Player able to skip panels");
+		addCheckBox("Player able to set up trap");
+		addCheckBox("Player able to create tunnels");
+		addCheckBox("Monster able to skip panels");
+		addCheckBox("Monster able to turn invisible");
+		addCheckBox("Monster able to create offspring");
+
+		addButton("OK");
+		addButton("Cancel");
+
+	}
+
+	public void addLabel(String text) {
+		optionLabels.add(new JLabel(text));
+	}
+
+	public void addCheckBox(String text) {
+		optionCheckboxes.add(new JCheckBox(text));
+		optionCheckboxes.get(optionButtons.size()).addActionListener(swl);
+
+	}
+
+	public void addButton(String text) {
+		optionButtons.add(new JButton(text));
+		optionButtons.get(optionButtons.size()).addActionListener(swl);
+	}
+
+	public void setSettingWinFrame(JFrame settingWinFrame) {
+		this.settingWinFrame = settingWinFrame;
+	}
+
+	public JFrame getSettingWinFrame() {
+		return settingWinFrame;
+	}
+
+}

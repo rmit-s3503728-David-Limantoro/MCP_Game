@@ -1,0 +1,13 @@
+import javax.swing.JFrame;
+
+public class SettingWindow {
+	private Setting gameSetting;
+	private JFrame settingWindowFrame;
+	
+	public SettingWindow(Setting initialSetting) {
+		gameSetting = initialSetting;
+	}
+	
+	
+	
+}
