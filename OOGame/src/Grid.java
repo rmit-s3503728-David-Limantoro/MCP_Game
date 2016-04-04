@@ -14,7 +14,7 @@ public class Grid {
 		for (int i = 0; i < 11; i++)
 			for (int j = 0; j < 11; j++)
 				if ((i % 5 == 0) || (j % 5 == 0 && i % 5 != 0)) {
-					cells2D[i][j] = new Cell(i, j);
+					cells2D[i][j] = new Cell(i, j, 2, true);
 					cells[k++] = cells2D[i][j];
 				}
 	}

@@ -5,7 +5,8 @@ public class Cell {
 	protected int row;
 	protected int col;
 	private int energyUsed = 2;
-	boolean gotGold = true;
+	private int monsterCost = 1;
+	private boolean isValid = false;
 
 	public Cell(int i, int j, int eU) {
 		row = i;
@@ -13,6 +14,13 @@ public class Cell {
 		setEnergyUsed(eU);
 	}
 
+	public Cell(int i, int j, int eU, boolean valid) {
+		row = i;
+		col = j;
+		setEnergyUsed(eU);
+		isValid = valid;
+	}
+	
 	public Cell(int i, int j) {
 		row = i;
 		col = j;
@@ -25,5 +33,9 @@ public class Cell {
 
 	public void setEnergyUsed(int energyUsed) {
 		this.energyUsed = energyUsed;
+	}
+	
+	public int getMonsterCost() {
+		return monsterCost;
 	}
 }
