@@ -24,6 +24,10 @@ public class Game extends JFrame {
 	private ArrayList<Monster> monster;
 	private BoardPanel bp;
 	private GameInputHandler gih;
+	private Setting setting;
+	private Score score;
+	private Login login;
+	
 
 	/*
 	 * This constructor creates the main model objects and the panel used for
@@ -122,8 +126,31 @@ public class Game extends JFrame {
 		return message;
 	}
 
+	public void save() {
+		Saving saveclass = new Saving(this);
+		saveclass.savegame(login, score, grid.cells2D, grid.cells, monster, player, setting);
+	}
+	
+	public void load() {
+		Saving saveclass = new Saving(this);
+		saveclass.loadGame();
+	}
+	
+	public void setUpGameOnLoad(Login log, Score s, Cell[][] cel2d, Cell[] c, ArrayList<Monster> m, Player p, Setting set) {
+		login = log;
+		score = s;
+		grid.cells2D = cel2d;
+		grid.cells = c;
+		monster = m;
+		player = p;
+		setting = set;
+	}
+	
 	public static void main(String args[]) throws Exception {
 		Game game = new Game();
+		game.setting = new Setting();
+		game.score = new Score();
+		game.login = new Login();
 		game.setTitle("Monster Game");
 		game.setSize(700, 700);
 		game.setLocationRelativeTo(null); // center the frame
