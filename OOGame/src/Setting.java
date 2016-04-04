@@ -1,14 +1,18 @@
 
-public class Setting {
-	private  boolean isPlayerSkipping; //setting options
-	private static boolean isPlayerTrapping;
-	private static boolean isPlayerTunnelling;
-	private static boolean isMonsterInvisible;
-	private static boolean isMonsterLeaping;
-	private static boolean isMonsterReproducing;
-	private static int timeticklength;
-	private static int gameDuration;
-	private static String maptype;
+public class Setting implements java.io.Serializable {
+	private boolean isPlayerSkipping = false; //setting options
+	private boolean isPlayerTrapping = false;
+	private boolean isPlayerTunnelling = false;
+	private boolean isMonsterInvisible = false;
+	private boolean isMonsterLeaping = false;
+	private boolean isMonsterReproducing = false;
+	private int timeticklength;
+	private int gameDuration;
+	private String maptype;
+	
+	public Setting() {
+		
+	}
 
 	public void updatePlayerAbilities(boolean skip, boolean trap, boolean tun) {
 		isPlayerSkipping = skip;
@@ -41,15 +45,15 @@ public class Setting {
 		return isPlayerTunnelling;
 	}
 
-	public static boolean isMonsterInvisible() {
+	public boolean isMonsterInvisible() {
 		return isMonsterInvisible;
 	}
 
-	public static boolean isMonsterLeaping() {
+	public boolean isMonsterLeaping() {
 		return isMonsterLeaping;
 	}
 
-	public static boolean isMonsterReproducing() {
+	public boolean isMonsterReproducing() {
 		return isMonsterReproducing;
 	}
 

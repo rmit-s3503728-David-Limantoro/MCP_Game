@@ -4,7 +4,7 @@
  * 0 to 10. Furthermore, either row or column must be 0, 5 or 10.    
 */
 
-public class Grid {
+public class Grid implements java.io.Serializable{
 
 	Cell cells[] = new Cell[57];
 	Cell cells2D[][] = new Cell[11][11];

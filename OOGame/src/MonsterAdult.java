@@ -4,8 +4,8 @@ public class MonsterAdult extends Monster {
 
 	private static int adultmovetime = 2;
 
-	public MonsterAdult(Grid g, Player p, int row, int col, ArrayList<Monster> monsterArray) throws Exception {
-		super(g, p, row, col, adultmovetime, monsterArray);
+	public MonsterAdult(Grid g, Player p, int row, int col, ArrayList<Monster> monsterArray, Setting sett) throws Exception {
+		super(g, p, row, col, adultmovetime, monsterArray, sett);
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class MonsterAdult extends Monster {
 				break;
 			}
 		}
-		monsterArray.add(new MonsterInfant(grid, findPlayer(), this.getCell().row, this.getCell().col, super.monsterArray)); //creates a new child
+		monsterArray.add(new MonsterInfant(grid, findPlayer(), this.getCell().row, this.getCell().col, super.monsterArray, super.getGameSettings())); //creates a new child
 	}
 
 	public void skillCheck() {
@@ -27,7 +27,8 @@ public class MonsterAdult extends Monster {
 									// try to leap and eat the player.
 			//destinationCell = leaping(); // the destinationcell is set to the player's location
 		}
-		if (getSkillTimer() == 0 && Setting.isMonsterReproducing() == true) { // and if no other monster exists)
+		if (getSkillTimer() == 0 
+				&& super.getGameSettings().isMonsterReproducing() == true) { // and if no other monster exists)
 			try { 
 				reproduce();
 				setSkillTimer(10);

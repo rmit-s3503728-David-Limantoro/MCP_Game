@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Login {
+public class Login implements java.io.Serializable {
 
 	private User[] loggedInUser;
 	private ArrayList<User> userList;

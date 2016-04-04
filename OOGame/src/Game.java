@@ -8,22 +8,25 @@ import java.util.ArrayList;
  * It also implements the main game loop 
  */
 
-public class Game extends JFrame {
+public class Game extends JFrame implements java.io.Serializable{
 
 	private final int TIMEALLOWED = 100;
 
-	private JButton up = new JButton("up");
-	private JButton down = new JButton("down");
-	private JButton left = new JButton("left");
-	private JButton right = new JButton("right");
-	private JButton start = new JButton("start");
-	private JLabel mLabel = new JLabel("Time Remaining : " + TIMEALLOWED);
+	private transient JButton up = new JButton("up");
+	private transient JButton down = new JButton("down");
+	private transient JButton left = new JButton("left");
+	private transient JButton right = new JButton("right");
+	private transient JButton start = new JButton("start");
+	private transient JButton save = new JButton("Save");
+	private transient JButton load = new JButton("load");
+	private transient JLabel mLabel = new JLabel("Time Remaining : " + TIMEALLOWED);
 
 	private Grid grid;
 	private Player player;
 	private ArrayList<Monster> monster;
-	private BoardPanel bp;
-	private GameInputHandler gih;
+	private transient BoardPanel bp;
+	private transient GameInputHandler gih;
+	private transient GameOptionsHandler goh;
 	private Setting setting;
 	private Score score;
 	private Login login;
@@ -39,9 +42,11 @@ public class Game extends JFrame {
 		grid = new Grid();
 		player = new Player(grid, 1, 0);
 		monster = new ArrayList<Monster>();
-		monster.add(new MonsterAdult(grid, player, 5, 5, monster));
+		setting = new Setting();
+		monster.add(new MonsterAdult(grid, player, 5, 5, monster, setting));
 		bp = new BoardPanel(grid, player, monster.get(0));
 		gih = new GameInputHandler(player);
+		goh = new GameOptionsHandler(this);
 
 		// Create a separate panel and add all the buttons
 		JPanel panel = new JPanel();
@@ -51,6 +56,8 @@ public class Game extends JFrame {
 		panel.add(right);
 		panel.add(start);
 		panel.add(mLabel);
+		panel.add(save);
+		panel.add(load);
 
 		// add Action listeners to all button events
 		up.addActionListener(gih);
@@ -58,6 +65,9 @@ public class Game extends JFrame {
 		left.addActionListener(gih);
 		right.addActionListener(gih);
 		start.addActionListener(gih);
+		load.addActionListener(goh);
+		save.addActionListener(goh);
+
 
 		// add panels to frame
 		add(bp, BorderLayout.CENTER);
@@ -98,7 +108,7 @@ public class Game extends JFrame {
 					if (((MonsterInfant) monster.get(x)).checktime() == 0) {
 						// replace MonsterChild with MonsterInfant
 						monster.add(new MonsterChild(monster.get(x).grid, player, monster.get(x).getCell().row,
-								monster.get(x).getCell().col, monster));
+								monster.get(x).getCell().col, monster, setting));
 						monster.remove(x);
 						break;
 					}
@@ -126,12 +136,12 @@ public class Game extends JFrame {
 		return message;
 	}
 
-	public void save() {
+	public void savegame() {
 		Saving saveclass = new Saving(this);
 		saveclass.savegame(login, score, grid.cells2D, grid.cells, monster, player, setting);
 	}
 	
-	public void load() {
+	public void loadgame() {
 		Saving saveclass = new Saving(this);
 		saveclass.loadGame();
 	}
@@ -148,7 +158,6 @@ public class Game extends JFrame {
 	
 	public static void main(String args[]) throws Exception {
 		Game game = new Game();
-		game.setting = new Setting();
 		game.score = new Score();
 		game.login = new Login();
 		game.setTitle("Monster Game");

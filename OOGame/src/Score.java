@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Score {
+public class Score implements java.io.Serializable {
 	private ArrayList<Integer> topscores = new ArrayList<Integer>();
 
 	public void updateScore(int newScore) {

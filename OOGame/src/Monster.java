@@ -14,17 +14,23 @@ public abstract class Monster extends Moveable {
 	private int skilltimer;
 	private boolean isTrapped;
 	private int visibleCountdown;
+	private Setting settings;
 
-	public Monster(Grid g, Player p, int row, int col, int speed, ArrayList<Monster> monsterArray) throws Exception {
+	public Monster(Grid g, Player p, int row, int col, int speed, ArrayList<Monster> monsterArray, Setting set) throws Exception {
 		super(g);
 		player = p;
 		setCell(grid.getCell(row, col));
 		monsterspeed = speed;
+		settings = set;
 		this.monsterArray = monsterArray;
 	}
 	
 	public Player findPlayer() {
 		return player;
+	}
+	
+	public Setting getGameSettings() {
+		return settings;
 	}
 
 	@Override
@@ -85,21 +91,52 @@ public abstract class Monster extends Moveable {
 	public void setMonsterSpeed(int newspeed) {
 		monsterspeed = newspeed;
 	}
-
+	
 	public Cell calculateDistance(Cell currentCell, Cell finaldestination) {
 		skillCheck(); // checking if the skills are available for use
 		if (destinationCell != null) { // if the leaping method has been used, destinationCell has now been set to a
 										// valid Cell and so the rest of the calculation is not necessary. If it
 										// hasn't been set, then the destinationCell hasn't been found yet.
 			// calculate the next cell the object will move into. YOU IDIOT! FINISH YOUR CODE!!!!
-			// 
+			
+			//the new Cell class is necessary because there is no link to the parent Cell in the original Cell class
+			ArrayList<CellforAITracking> openList = new ArrayList<CellforAITracking>();
+			ArrayList<CellforAITracking> closedList = new ArrayList<CellforAITracking>();
+			openList.add(new CellforAITracking(currentCell, currentCell));
+			while (openList != null) {
+				CellforAITracking currentcell = openList.get(0);
+				for (int x = 0; x < openList.size(); x++) {
+					if (openList.get(x).getCalculatedCost() < currentcell.getCalculatedCost()) {
+						currentcell = openList.get(x);
+					}
+				}
+				if (currentcell.getSelectedCell() == player.currentCell) {
+					//path is finished
+					break;
+				}
+				else {
+					closedList.add(currentcell);
+				}
+/*			
+
+				Else
+					Move current Cell to the closed list
+					Iterate through each cell adjacent to the current Cell
+						If (currentCell.isValid == true) { 
+							^^ openList.contains(currentCell)
+								And it isn't on the closed list
+									Move it to the open list
+									Calculate the cost
+									}*/
+			}
+
 			return currentCell;
 		}
 		return currentCell;
 	}
 
 	public void skillCheck() {
-		if (skilltimer == 0 && Setting.isMonsterLeaping() == true) { // if the
+		if (skilltimer == 0 && settings.isMonsterLeaping() == true) { // if the
 																		// skill
 																		// timer
 																		// is 0,
@@ -121,7 +158,7 @@ public abstract class Monster extends Moveable {
 			destinationCell = leaping(); // the destinationcell is set to the
 											// player's location
 		}
-		if (skilltimer == 0 && Setting.isMonsterInvisible() == true) { // if
+		if (skilltimer == 0 && settings.isMonsterInvisible() == true) { // if
 																		// neither
 																		// of
 																		// the

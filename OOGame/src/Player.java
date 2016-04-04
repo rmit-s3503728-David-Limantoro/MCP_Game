@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 /*  This class encapsulates player position and direction  
  */
-public class Player extends Moveable implements KeyListener {
+public class Player extends Moveable implements KeyListener, java.io.Serializable{
 	private boolean readyToStart = false;
 	private int energy = 0;
 

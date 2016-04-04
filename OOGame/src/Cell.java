@@ -1,7 +1,7 @@
 /* This class represents the individual cell in the grid.
  */
 
-public class Cell {
+public class Cell implements java.io.Serializable {
 	protected int row;
 	protected int col;
 	private int energyUsed = 2;

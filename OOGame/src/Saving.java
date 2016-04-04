@@ -15,7 +15,13 @@ public class Saving implements java.io.Serializable{
 
 	public void savegame(Login log, Score s, Cell[][] cel2d, Cell[] c, ArrayList<Monster> m, Player p, Setting set) {
 		SaveGameFile sgf = new SaveGameFile();
-		sgf.convertData(log, s, cel2d, c, m, p, set);
+		sgf.login = log;
+		sgf.scores = s;
+		sgf.cells2d = cel2d;
+		sgf.cells = c;
+		sgf.monsters = m;
+		sgf.player = p;
+		sgf.settings = set;
 		try {
 			FileOutputStream savefile = new FileOutputStream("SaveGame.ser");
 			ObjectOutputStream out = new ObjectOutputStream(savefile);
@@ -49,7 +55,7 @@ public class Saving implements java.io.Serializable{
 
 	
 	//creating a new object that holds all the necessary data that can then be saved
-	public class SaveGameFile {
+	public class SaveGameFile implements java.io.Serializable {
 		private Login login;
 		private Score scores;
 		private Cell[][] cells2d;
@@ -57,15 +63,5 @@ public class Saving implements java.io.Serializable{
 		private ArrayList<Monster> monsters = new ArrayList<Monster>();
 		private Player player;
 		private Setting settings;
-		
-		public void convertData (Login log, Score s, Cell[][] cel2d, Cell[] c, ArrayList<Monster> m, Player p,Setting set) {
-			login = log;
-			scores = s;
-			cells2d = cel2d;
-			cells = c;
-			monsters = m;
-			player = p;
-			settings = set;
-		}
 	}
 }

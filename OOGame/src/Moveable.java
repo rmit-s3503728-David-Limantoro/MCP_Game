@@ -2,7 +2,7 @@
  * The abstract method move() must be overridden by Player and Monster classes
  */
 
-public abstract class Moveable {
+public abstract class Moveable implements java.io.Serializable{
 //	protected char currentDirection;
 	protected Cell currentCell;
 	protected Grid grid;
