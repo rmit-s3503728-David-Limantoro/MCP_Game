@@ -16,28 +16,38 @@ public class SettingWindow {
 	private JFrame prevWindow;
 	private JFrame settingWinFrame;
 
-	private ArrayList<JLabel> optionLabels;
-	private ArrayList<JCheckBox> optionCheckboxes;
-	private ArrayList<JButton> optionButtons;
+	private Hashtable<String, JLabel> optionLabels;
+	private Hashtable<String, JCheckBox> optionCheckboxes;
+	private Hashtable<String, JButton> optionButtons;
 	private Hashtable<String, JTextArea> optionTextboxes;
 
 	private SettingWindowListener swl;
 
 	private class SettingWindowListener implements ActionListener {
+
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			switch (arg0.getActionCommand()) {
 			case ("ok"):
 				// Apply changes, return to previous window
-				// curGameSetting.updatePlayerAbilities(skip, trap, tun);
-				// curGameSetting.updateMonsterAbilities(invis, leap, repro);
-				// curGameSetting.updateMonsterAbilities(invis, leap, repro);
+				curGameSetting.updatePlayerAbilities(optionCheckboxes.get("playerSkillPanel").isSelected(),
+						optionCheckboxes.get("playerSkillTrap").isSelected(),
+						optionCheckboxes.get("playerSkillTunnel").isSelected());
+				curGameSetting.updateMonsterAbilities(optionCheckboxes.get("monsterSkillInvis").isSelected(),
+						optionCheckboxes.get("monsterSkillLeap").isSelected(),
+						optionCheckboxes.get("monsterSkillRepro").isSelected());
+				curGameSetting.updateOtherSettings(Integer.parseInt(optionTextboxes.get("gameTick").getText()),
+						Integer.parseInt(optionTextboxes.get("gameDuration").getText()),
+						optionTextboxes.get("mapType").getText());
+				settingWinFrame.dispose();
+				prevWindow.setEnabled(true);
 				break;
 
 			case ("cancel"):
 				// Cancel all changes, return to previous window
-
+				settingWinFrame.dispose();
+				prevWindow.setEnabled(true);
 				break;
 
 			default:
@@ -47,51 +57,59 @@ public class SettingWindow {
 
 	}
 
-	public SettingWindow(Setting gameSetting) {
+	public SettingWindow(Setting gameSetting, JFrame prevWindow) {
+		this.prevWindow = prevWindow;
 		curGameSetting = gameSetting;
 		settingWinFrame = new JFrame("Setting");
-		optionLabels = new ArrayList<JLabel>();
-		optionCheckboxes = new ArrayList<JCheckBox>();
-		optionButtons = new ArrayList<JButton>();
+		optionLabels = new Hashtable<String, JLabel>();
+		optionCheckboxes = new Hashtable<String, JCheckBox>();
+		optionButtons = new Hashtable<String, JButton>();
 		optionTextboxes = new Hashtable<String, JTextArea>();
 
-		addLabel("Player's Skill");
-		addLabel("Monster's Skill");
-		addLabel("Game Duration");
-		addLabel("Game Tick Speed");
+		addLabel("Player's Skill", "label1");
+		addCheckBox("Player able to skip panels", "playerSkillPanel");
+		addCheckBox("Player able to set up trap", "playerSkillTrap");
+		addCheckBox("Player able to create tunnels", "playerSkillTunnel");
 
-		addCheckBox("Player able to skip panels", "playerSetting1");
-		addCheckBox("Player able to set up trap", "playerSetting2");
-		addCheckBox("Player able to create tunnels", "playerSetting3");
-		addCheckBox("Monster able to skip panels", "monsterSetting1");
-		addCheckBox("Monster able to turn invisible", "monsterSetting2");
-		addCheckBox("Monster able to create offspring", "monsterSetting3");
+		addLabel("Monster's Skill", "label2");
+		addCheckBox("Monster able to turn invisible", "monsterSkillInvis");
+		addCheckBox("Monster able to skip panels", "monsterSkillLeap");
+		addCheckBox("Monster able to create offspring", "monsterSkillRepro");
+
+		addLabel("Game Tick Speed", "label3");
+		addTextBoxes("", "gameTick");
+
+		addLabel("Game Duration", "label4");
+		addTextBoxes("", "gameDuration");
+
+		addLabel("Game Map Type", "label5");
+		addTextBoxes("", "mapType");
 
 		addButton("OK", "ok");
 		addButton("Cancel", "cancel");
-
-		addTextBoxes("", "gameDuration");
-		addTextBoxes("", "gameTick");
-
 	}
 
-	public void addLabel(String text) {
-		optionLabels.add(new JLabel(text));
+	public void addLabel(String text, String labelName) {
+		optionLabels.put(labelName, new JLabel(text));
+		settingWinFrame.add(optionLabels.get(labelName));
 	}
 
 	public void addTextBoxes(String initialText, String textboxName) {
 		optionTextboxes.put(textboxName, new JTextArea(initialText));
+		settingWinFrame.add(optionTextboxes.get(textboxName));
 	}
 
 	public void addCheckBox(String text, String commandName) {
-		optionCheckboxes.add(new JCheckBox(text));
-		optionCheckboxes.get(optionCheckboxes.size()).setActionCommand(commandName);
+		optionCheckboxes.put(commandName, new JCheckBox(text));
+		optionCheckboxes.get(commandName).setActionCommand(commandName);
+		settingWinFrame.add(optionCheckboxes.get(commandName));
 	}
 
 	public void addButton(String text, String commandName) {
-		optionButtons.add(new JButton(text));
-		optionButtons.get(optionButtons.size()).addActionListener(swl);
-		optionButtons.get(optionButtons.size()).setActionCommand(commandName);
+		optionButtons.put(commandName, new JButton(text));
+		optionButtons.get(commandName).addActionListener(swl);
+		optionButtons.get(commandName).setActionCommand(commandName);
+		settingWinFrame.add(optionButtons.get(commandName));
 	}
 
 	public void setSettingWinFrame(JFrame settingWinFrame) {

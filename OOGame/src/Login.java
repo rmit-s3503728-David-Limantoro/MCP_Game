@@ -21,6 +21,7 @@ public class Login {
 			} catch (NewUserException nue) {
 				System.out.println("Cannot create new user because \"" + nue.getInvalidUserName()
 						+ "\" already exists, please try again with different username.");
+				break;
 			}
 		}
 
